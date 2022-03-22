@@ -19,6 +19,9 @@ body {
 svg {
   width: 350px;
   height: 840px;
+  position:absolute;
+  left:0;
+  top:0;
   }
 path {
   transition: stroke-dasharray 0.3s;
@@ -98,7 +101,7 @@ window.onload = init;
 </script>
 <div id="map">
   <img src="baltimoremap.png">
-  <svg viewBox="0 0 320 800" style="position:absolute; left:0; top:0;">
+  <svg viewBox="0 0 350 840">
     <path id="route" stroke="red" stroke-width="3" fill="none"/>  
   </svg>
 </div>
@@ -310,7 +313,7 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
       <p class="caption">
       7:16pm bike 0.5 mi (4 min):
       <ol>
-        <li data-path="L179,257">East on North Ave</li>
+        <li data-path="L164,259 L179,259">East on North Ave</li>
         <li data-path="L181,287">South on St Paul St (turn right)</li>
         <li data-path="L176,283">Cross over tracks via bridge; turn right; arrive Penn Station</li>
       </ol>
