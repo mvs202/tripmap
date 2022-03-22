@@ -1,0 +1,335 @@
+<html>
+<head>
+<title>Bike Tour of Baltimore, Maryland</title>
+<!-- 
+X-Y coordinates were found via https://yangcha.github.io/iview/iview.html
+Map is from https://snazzymaps.com/style/24088/map-without-labels
+HTML elements can include a "data-path" attribute containing path commands for the SVG path "d" attribute.
+These points get displayed as the user hovers over the element.
+-->
+<style>
+body {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;  
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  }
+svg {
+  width: 350px;
+  height: 840px;
+  }
+path {
+  transition: stroke-dasharray 0.3s;
+  }
+table {
+  border-collapse: collapse;
+  }
+tr {
+  transition: background-color 0.3s;
+  }
+tr:hover {
+  background-color: #FFDAFF;
+  }
+td {
+  vertical-align: top;
+  padding: 10px;
+  }
+td:first-child {
+  text-align: right;
+  }
+ol {
+  margin: 0 0 10px 0;
+  }
+[data-path] {
+  cursor: pointer;
+}
+[data-path]:hover {
+  background-color: #FFFFFF;
+}
+#map {
+  color: #000033;
+  background-color: #FFCCCC;
+  }
+#directions {
+  font-family: Helvetica, Arial, Sans-Serif;
+  color: #000033;
+  background-color: #DADAFF;
+  flex-grow: 1;
+  overflow: scroll;
+  padding: 20px 20px 20px 0;
+  }
+#directions img {
+  float: right;
+  margin-left: 10px;		
+}
+.caption {
+  margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+<script>
+function init() {
+  // Calculate the length of all path segments:
+  const initialPath = "M176,283"; // Penn Station
+  const pathNodes = document.querySelectorAll("[data-path]");
+  const paths = Array.from(pathNodes, node => node.getAttribute("data-path"));
+  const path = [initialPath, ...paths].join(" ");
+  const route = document.getElementById("route");
+  route.setAttribute("d", path);
+  const fullLength = route.getTotalLength();
+  // Loop through all "data-path" nodes to add the mouseOver event.
+  // We will rebuild the path in order to measure the partial length at each node:
+  let partialPath = initialPath;
+  pathNodes.forEach(node => {
+    const newPath = node.getAttribute("data-path");
+    partialPath += " " + newPath;
+    route.setAttribute("d", partialPath);
+    const partialLength = route.getTotalLength();
+    node.addEventListener("mouseover", () => 
+      route.setAttribute("stroke-dasharray", `${partialLength} ${fullLength}`)
+      );
+    });
+  }
+
+window.onload = init;
+</script>
+<div id="map">
+  <img src="baltimoremap.png">
+  <svg viewBox="0 0 320 800" style="position:absolute; left:0; top:0;">
+    <path id="route" stroke="red" stroke-width="3" fill="none"/>  
+  </svg>
+</div>
+<div id="directions">
+<table>
+  <tr>
+    <td>8:45am<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/51661419855/"><img src="https://live.staticflickr.com/65535/51661419855_0af0a4a25a_n.jpg"></a>
+      Meet at <a href="https://www.unionstationdc.com/">Union Station</a> (MARC waiting room).
+      Even if the waiting area is full, the train is huge and there is no need to rush.
+      Don't forget to bring bike lights for the ride back home.
+      <p>
+      There are several MARC ticket vending machines. The Amtrak machines no longer sell MARC tickets. Buy round-trip tickets ($18) to avoid buying a return ticket in Baltimore. 
+      <p>
+      Expect to bike 17 miles in Baltimore. Beginning of route is gently uphill; rest is downhill or flat.
+    </td>
+  </tr>
+  <tr>
+    <td>8:55am<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/28232629880/"><img src="https://live.staticflickr.com/8773/28232629880_795886ef5c_n.jpg"></a>
+      Depart Union Station (DC 8:55am → Baltimore 9:57am).
+      The train should include the bike car (at the far end of the platform), which has 16 bike racks.
+      If for some reason the bike car is missing, all other cars allow bikes, albeit only 2 per car.
+      The MARC IV railcars accommodate bikes on the folding seats, but they advise you bring a bungee cord to secure it (not a big deal if you forget).
+      See <a href="https://www.mta.maryland.gov/bike#rail">Bikes on MARC Train</a>, and <a href="https://www.youtube.com/watch?v=vDfpYQPKAOY">this video</a>.
+    </td>
+  </tr>
+  <tr>
+    <td>9:57am<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
+      <a href="https://baltimorepennstation.com/">Penn Station</a>
+      <p class="caption">
+      10:02am bike 1.8 mi north (13 min):
+      <ol>
+        <li data-path="L173,281">West to Charles St</li>
+        <li data-path="L170,242">North on Charles St</li>
+        <li data-path="L183,242">East on 21st St (turn right)</li>
+        <li data-path="L181,198">North on Hargrove St (after St Paul St; turn left)</li>
+        <li data-path="L192,195">East on 31st St (turn right)</li>
+        <li data-path="L189,138">North on Guilford St (turn left)</li>
+        <li data-path="L203,137">East on 32nd St (turn right); arrive at Barclay St</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="0.4">
+    <td>10:15am</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/50526751256/"><img src="https://live.staticflickr.com/65535/50526751256_c0efd0ea46_n.jpg"></a>
+      <a href="https://www.32ndstreetmarket.org/">Waverly 32nd Street Farmers Market</a>. Open 7:00am to Noon. <a href="https://zekescoffee.com/">Zeke's Coffee</a>, <a href="https://www.uptownbakers.com/">Uptown Bakers</a>, etc.
+      <p class="caption">
+      10:41am bike 1.3 mi north (9 min):
+      <ol>
+        <li data-path="L203,127">North on Barclay St</li>
+        <li data-path="L173,104">Northwest on University Parkway (cross 33rd St; turn slight left)</li>
+        <li data-path="L174,91 L180,79 L180,66 L175,47">North on St Paul St (cross Greenway; turn slight right)</li>
+        <li data-path="L195,34">Northeast on Highfield Rd (turn right)</li>
+        <li data-path="L192,26">Northwest on Underwood Rd (turn left)</li>
+        <li data-path="L186,33">Arrive 4310 Underwood Rd</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="0.5">
+    <td>10:50am</td>
+    <td>
+      <img src="sherwood.png">
+      <a href="https://www.sherwoodgardens.org/">Sherwood Gardens</a>: tulip displays.
+      <p class="caption">
+      11:47am bike 0.8 mi west (5 min):
+      <ol>
+        <li data-path="L192,26 L195,34">South on Underwood Rd</li>
+        <li data-path="L175,47">Southwest on Highfield Rd (turn right)</li>
+        <li data-path="L180,69">South on St Paul St (turn left)</li>
+        <li data-path="L172,69 L168,72 L159,73">West on 39th St (turn right); cross Charles St</li>
+      </ol>
+      See <a href="https://www.mdscottishrite.org/">Scottish Rite of Freemasonry</a>.
+      <p class="caption">
+      11:57am bike 2.0 mi west (13 min):
+      <ol>
+        <li data-path="L148,73 L138,67 L133,71">West on 39th St</li>
+        <li data-path="L116,60">Northwest on University Parkway (turn right)</li>
+        <li data-path="L93,63">West on 40th St (turn slight left)</li>
+        <li data-path="L95,72">Enter <a href="https://rotundabaltimore.com/">The Rotunda</a> (left on 1st light after Keswick Rd)</li>
+        <li data-path="L90,73 L89,69 L94,68 L93,63">Clockwise around The Rotunda</li>
+        <li data-path="L77,63">West on 40th St</li>
+        <li data-path="L55,57 L21,73">Cross Roland Ave (turn slight right; 40th St becomes 41st St)</li>
+        <li data-path="L11,62">Arrive 1700 W 41st St (before bridge over Jones Falls Expressway)</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="1.0">
+    <td>12:10pm<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/49045180741/"><img src="https://live.staticflickr.com/65535/49045180741_59b28ef913_n.jpg"></a>
+      Lunch at <a href="https://www.wellcraftedkitchen.com/">Well Crafted Kitchen</a>, 
+which shares space with <a href="https://unioncraftbrewing.com/">Union Craft Brewing</a> (both open at noon). 
+Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collective</a>, a former Sears warehouse.
+      <p class="caption">
+      1:03pm bike 1.0 mi south (7 min):
+      <ol>
+        <li data-path="L21,73 L50,60">Northeast on 41st St (turn left)</li>
+        <li data-path="L63,109">South on Falls Rd (turn right); arrive Falls Rd & 36th St ("The Avenue")</li>      
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="54">
+    <td>1:10pm</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/18378851522/"><img src="https://live.staticflickr.com/8791/18378851522_2e498dba37_n.jpg"></a>
+      Hampden. Start at <a href="https://atomicbooks.com/">Atomic Books</a>. Then get a snowball at <a href="https://www.instagram.com/qualitysnowballs/">Quality Snowballs</a>. Do what the native Baltimoreans do and add marshmallow topping for 75¢.If you like antiques there are many shops here. If you like pinball, there is a small arcade in the back of <a href="https://www.holyfrijoles.net/">Holy Frijoles</a>.
+      <p class="caption">
+      2:30am bike 1.0 mi southeast (5 min):
+      <ol>
+        <li data-path="L105,107">East on 36th St</li>
+        <li data-path="L106,151 L104,176">South on Keswick Ave (turn right)</li>
+        <li data-path="L99,177">Southwest on Wyman Park Dr (turn right)</li>
+        <li data-path="L105,186 L97,181 L96,187">South on Jones Falls Trail (across from <a href="https://www.johnshopkinsatstieffsilver.com/">Stieff Silver Building</a>); Follow switchback trail downhill to Falls Rd</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="60">
+    <td>2:35pm</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/44439068054/"><img src="https://live.staticflickr.com/1949/44439068054_08c5894ffc_n.jpg"></a>
+      Visit Round Falls. Then take <a href="https://jonesfallstrail.us/">Jones Falls Trail</a> to Fells Point.
+      <p class="caption">
+      2:45pm bike 1.7 mi south (12 min):
+      <ol>
+        <li data-path="L106,200 L108,211 L121,225 L128,239 L145,252 L163,274">Southeast on Jones Falls Trail (downhill)</li>
+        <li data-path="L166,317">South on Maryland Ave (turn right)</li>
+        <li data-path="L186,316">East on Biddle St (turn left)</li>
+        <li data-path="L186,307">North on Hargrove St (turn left); arrive 106 E Preston St (<a href="https://baltimorefishbowl.com/stories/new-gaia-mural-in-mount-vernon-is-just-divine/">Divine mural</a>)</li>
+      </ol>
+      <p class="caption">
+      3:00pm bike 2.8 mi south (20 min):
+      <ol>
+        <li data-path="L186,316">South on Hargrove St</li>
+        <li data-path="L197,315">East on Biddle St (turn left)</li>
+        <li data-path="L203,317 L205,350 L209,367 L209,380 L208,389 L217,398">Cross Guilford Ave; south on Jones Falls Trail (turn right)</li>
+        <li data-path="L222,394">East on Gay St (turn left)</li>
+        <li data-path="L231,401 L264,445">South on Front St (turn right)</li>
+        <li data-path="L305,443">East on Baltimore St (turn left)</li>
+        <li data-path="L306,466 L305,466 L305,480">South on Broadway (turn right)</li>
+        <li data-path="L320,479">East on Thames St (turn left)</li>
+        <li data-path="L320,484">South on Ann St; arrive 903 S Ann St</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="68">
+    <td>3:20pm<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/41374515220/"><img src="https://live.staticflickr.com/1807/41374515220_b2bf2454eb_n.jpg"></a>
+      Coffee at <a href="https://www.pitangogelato.com/location/pitango-bakery-cafe/">Pitango Cafe</a> (alternate: <a href="https://www.dailygrindfellspoint.com">Daily Grind</a>).
+      <p class="caption">
+      3:44pm Bike along waterfront via Harbor Point and Harbor East: 3.6 mi south (26 min):
+      <ol>
+        <li data-path="L320,479 L313,479">West on Thames St</li>
+        <li data-path="L313,489">South on Broadway (turn left; visit pier)</li>
+        <li data-path="L313,479 L306,480 L308,484 L288,499">Southwest along waterfront</li>
+        <li data-path="L287,498 L291,492">North on Thames St (turn right after Maritime Park)</li>
+        <li data-path="L287,481 L287,474">North on Caroline St (turn left)</li>
+        <li data-path="L273,474">West on Lancaster St (turn left)</li>
+        <li data-path="L273,475 L252,477 L249,472 L246,461">Cross on Central Ave (turn right)(<a href="https://www.wholefoodsmarket.com/stores/harboreast">Whole Foods Market</a> corner); continue along waterfront</li>
+        <li data-path="L237,459 L236,467 L232,465 L231,454 L224,454 L223,446 L197,447 L191,446">Cross Jones Falls at Fleet St; cut across piers, continue to <a href="https://www.harborplace.com/">Harborplace</a> (sadly vacant); Pratt St & Light St</li>
+        <li data-path="L191,444 L161,444">West on Pratt St (ride sidewalk for three blocks); check out "Welcome to Baltimore" mural at <a href="https://www.prattstreetalehouse.com/">Pratt Street Ale House</a> (206 W Pratt St)</li>
+        <li data-path="L165,444">East on Pratt St</li>
+        <li data-path="L164,414 L169,395 L168,363">North on Hopkins Plaza; continue north on Liberty St; continue north on Cathedral St</li>
+        <li data-path="L176,362">East on Mt Vernon Pl; arrive at Washington Pl</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="84">
+    <td>4:10pm</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/46979487385/"><img src="https://live.staticflickr.com/65535/46979487385_8d726c980c_n.jpg"></a>
+      Climb to top of <a href="https://mountvernonplace.org/the-monument/">Washington Monument</a> (open till 5:00pm). Gallery level is free; lookout level is $6. No more than five people can go up together.
+<p>
+<a href="https://thewalters.org/">The Walters Art Museum</a> is one block south of the Monument, has free admission, and is also open till 5:00pm. Anyone not climbing the Monument can explore the museum. Be sure to visit the Chamber of Wonders.
+      <p class="caption">
+      5:08pm bike 0.3 mi (2 min):
+      <ol>
+        <li data-path="L177,362 L176,345">North on Washington Pl; continue north on Charles St</li>
+        <li data-path="L183,345">East on Read St</li>
+        <li data-path="L183,352">South on St Paul St; arrive 800 St Paul St</li>
+      </ol>
+
+    </td>
+  </tr>
+  <tr data-percent="94">
+    <td>5:10pm<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/50528766646/"><img src="https://live.staticflickr.com/65535/50528766646_5ca7becae9_n.jpg"></a>
+      Light dinner at <a href="https://www.sanpablotacos.com/">San Pablo Tacos</a> (alternate: <a href="http://www.iggiespizza.com/">Iggies Pizza</a>).
+      <p class="caption">
+      6:21pm bike 1.1 mi (9 min):
+      <ol>
+        <li data-path="L168,353">West on Madison St</li>
+        <li data-path="L168,347 L162,329 L165,322 L162,256 L164,256">North on Cathedral St (turn right); continue along bike lane to Maryland Ave; arrive 30 W North Ave</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="99">
+    <td>6:30pm<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/48341998077/"><img src="https://live.staticflickr.com/65535/48341998077_deb5ec7572_n.jpg"></a>
+      Pinball/video games at <a href="https://northavemarket.com/">North Avenue Market</a>
+      <p class="caption">
+      7:16pm bike 0.5 mi (4 min):
+      <ol>
+        <li data-path="L179,257">East on North Ave</li>
+        <li data-path="L181,287">South on St Paul St (turn right)</li>
+        <li data-path="L176,283">Cross over tracks via bridge; turn right; arrive Penn Station</li>
+      </ol>
+    </td>
+  </tr>
+  <tr data-percent="100">
+    <td>7:20pm<br>🚽</td>
+    <td>
+      <a href="https://www.flickr.com/photos/mvjantzen/28350832634/"><img src="https://live.staticflickr.com/8858/28350832634_9575e9d35d_n.jpg"></a>
+      Penn Station. Take the 7:30 train.
+      <p class="caption">
+      MARC's last three trains are:
+      <ul>
+        <li>6:00pm → 7:05pm</li>
+        <li>7:30pm → 8:30pm</li>
+        <li>9:15pm → 10:15pm</li>
+      </ul></td>
+  </tr>
+</table>
+</div>
+</body>
+</html>
