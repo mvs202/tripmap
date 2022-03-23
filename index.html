@@ -26,6 +26,10 @@ svg {
   top: 0;
   }
 path {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-opacity: 0.67;
+  fill: none;
   transition: stroke-dasharray 0.3s;
   }
 table {
@@ -49,9 +53,13 @@ ol {
   }
 [data-path] {
   cursor: pointer;
+  transition: background-color 0.3s;
   }
 [data-path]:hover {
   background-color: #FFFFFF;
+  }
+.caption {
+  margin-bottom: 5px;
   }
 #map {
   color: #000033;
@@ -79,9 +87,6 @@ ol {
 #directions img {
   float: right;
   margin-left: 10px;		
-  }
-.caption {
-  margin-bottom: 5px;
   }
 </style>
 </head>
@@ -118,7 +123,7 @@ window.onload = init;
 <div id="map">
   <img src="baltimoremap.png">
   <svg viewBox="0 0 350 840">
-    <path id="route" stroke="red" stroke-width="3" fill="none"/>  
+    <path id="route"/>  
   </svg>
   <h1 id="label"></h1>
 </div>
