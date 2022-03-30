@@ -46,8 +46,12 @@ td {
   vertical-align: top;
   padding: 10px;
   }
-td:first-child {
+td:nth-child(1) {
   text-align: right;
+  }
+.destination {
+  display: flex;
+  flex-direction: row;
   }
 ol {
   margin: 0 0 10px 0;
@@ -57,15 +61,42 @@ h1 {
   font-size: 16px;
   margin: 0 0 10px 0;
   }
+details {
+  flex-grow: 1;
+  }
+details + .images {
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.3s, height 0.3s;
+  }
+details[open] + .images {
+  opacity: 1;
+  height: 213px;
+  }
+summary {
+  position: relative;
+  }
+details[open] summary {
+  margin-bottom: 10px;
+  }
+.caption {
+  margin-bottom: 5px;
+  }
+.emoji {
+  font-size: 12px;
+  }
+.images {
+  flex-grow: 0;
+  }
+.images a {
+  display: block;
+  }
 [data-path] {
   cursor: pointer;
   transition: background-color 0.3s;
   }
 [data-path]:hover {
   background-color: #FFFFFF;
-  }
-.caption {
-  margin-bottom: 5px;
   }
 #map {
   color: #000033;
@@ -91,12 +122,6 @@ h1 {
 #directions img {
   float: right;
   margin-left: 10px;		
-  }
-.images {
-  float: right;
-  }
-.images a {
-  display: block;
   }
 #directions .images img {
   float: none;
@@ -131,6 +156,20 @@ function init() {
     });
   }
 
+function showAll() {
+  const details = document.querySelectorAll("details");
+  details.forEach(detail => {
+    detail.setAttribute("open", null);
+    });
+  }
+
+function hideAll() {
+  const details = document.querySelectorAll("details");
+  details.forEach(detail => {
+    detail.removeAttribute("open");
+    });
+  }
+
 window.onload = init;
 </script>
 <div id="map">
@@ -151,70 +190,113 @@ window.onload = init;
       Expect to bike 17 miles in Baltimore. Beginning of route is gently uphill; rest is downhill or flat.
       <p>
       Bring a water bottle. If you have both a U lock and a cable lock, bring both. Don't forget to bring bike lights for the ride back home.
+<p>
+<button onClick="showAll()">Show all</button>
+<button onClick="hideAll()">Hide all</button>
     </td>
   </tr>
   <tr>
-    <td>8:45am<br>🚽</td>
+    <td>8:45am</td>
     <td>
-      <span class="images">
-        <a href="https://www.flickr.com/photos/mvjantzen/51661419855/"><img src="https://live.staticflickr.com/65535/51661419855_0af0a4a25a_n.jpg"></a>
-        <a href="https://www.flickr.com/photos/mvjantzen/28232629880/"><img src="https://live.staticflickr.com/8773/28232629880_795886ef5c_n.jpg"></a>
-      </span>
-      <a href="https://www.unionstationdc.com/">Union Station</a>. Meet in the MARC waiting room.
-      Even if the waiting area is full, the train is huge and there is no need to rush.
-      <p>
-      There are several MARC ticket vending machines. The Amtrak machines no longer sell MARC tickets. Buy round-trip tickets ($18) to avoid buying a return ticket in Baltimore.      <p>
-      The train should include the bike car (at the far end of the platform), which has 16 bike racks.
-      If for some reason the bike car is missing, all other cars allow bikes, albeit only 2 per car.
-      The MARC IV railcars accommodate bikes on the folding seats, but they advise you bring a bungee cord to secure it (not a big deal if you forget).
-      See <a href="https://www.mta.maryland.gov/bike#rail">Bikes on MARC Train</a>, and <a href="https://www.youtube.com/watch?v=vDfpYQPKAOY">this video</a>.
-      <p>
-      8:55am depart Union Station (arrive Baltimore 9:57am).
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://www.unionstationdc.com/">Union Station</a>
+            <span class="emoji">🚽🚆</span>
+          </summary>
+          Meet in the MARC waiting room.
+          Even if the waiting area is full, the train is huge and there is no need to rush.
+          <p>
+          There are several MARC ticket vending machines. 
+          The Amtrak machines no longer sell MARC tickets. 
+          Buy round-trip tickets ($18) to avoid buying a return ticket in Baltimore.
+          <p>
+          The train should include the bike car (at the far end of the platform), which has 16 bike racks.
+          If for some reason the bike car is missing, all other cars allow bikes, albeit only 2 per car.
+          The MARC IV railcars accommodate bikes on the folding seats, 
+          but they advise you bring a bungee cord to secure it (not a big deal if you forget).
+          See <a href="https://www.mta.maryland.gov/bike#rail">Bikes on MARC Train</a>,
+          and <a href="https://www.youtube.com/watch?v=vDfpYQPKAOY">this video</a>.
+          <p>
+          8:55am depart Union Station (arrive Baltimore 9:57am).
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/51661419855/"><img src="https://live.staticflickr.com/65535/51661419855_0af0a4a25a_n.jpg"></a>
+          <a href="https://www.flickr.com/photos/mvjantzen/28232629880/"><img src="https://live.staticflickr.com/8773/28232629880_795886ef5c_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>9:57am<br>🚽</td>
+    <td>9:57am</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
-      <a href="https://baltimorepennstation.com/">Penn Station</a>
-      <p class="caption">
-      10:02am bike 1.8 mi north (13 min):
-      <ol>
-        <li data-path="L173,281">West to Charles St</li>
-        <li data-path="L170,242">North on Charles St</li>
-        <li data-path="L183,242">East on 21st St (turn right)</li>
-        <li data-path="L181,198">North on Hargrove St (after St Paul St; turn left)</li>
-        <li data-path="L192,195">East on 31st St (turn right)</li>
-        <li data-path="L189,138">North on Guilford St (turn left)</li>
-        <li data-path="L203,137">East on 32nd St (turn right); arrive at Barclay St</li>
-      </ol>
+      <div class="destination">
+        <details>
+          <summary data-path="L176,283">
+            <a href="https://baltimorepennstation.com/">Penn Station</a>
+            <span class="emoji">🚽🚆</span>
+          </summary>
+          <p class="caption">
+          10:02am bike 1.8 mi north (13 min):
+          <ol>
+            <li data-path="L173,281">West to Charles St</li>
+            <li data-path="L170,242">North on Charles St</li>
+            <li data-path="L183,242">East on 21st St (turn right)</li>
+            <li data-path="L181,198">North on Hargrove St (after St Paul St; turn left)</li>
+            <li data-path="L192,195">East on 31st St (turn right)</li>
+            <li data-path="L189,138">North on Guilford St (turn left)</li>
+            <li data-path="L203,137">East on 32nd St (turn right); arrive at Barclay St</li>
+          </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
     <td>10:15am</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/50526751256/"><img src="https://live.staticflickr.com/65535/50526751256_c0efd0ea46_n.jpg"></a>
-      <a href="https://www.32ndstreetmarket.org/">Waverly 32nd Street Farmers Market</a>. Open 7:00am to Noon. <a href="https://zekescoffee.com/">Zeke's Coffee</a>, <a href="https://www.uptownbakers.com/">Uptown Bakers</a>, etc.
-      <p class="caption">
-      10:41am bike 1.3 mi north (9 min):
-      <ol>
-        <li data-path="L203,127">North on Barclay St</li>
-        <li data-path="L173,104">Northwest on University Parkway (cross 33rd St; turn slight left)</li>
-        <li data-path="L174,91 L178,85">North on St Paul St (cross Greenway; turn slight right); along Guildford Gateway Park</li>
-        <li data-path="L181,87">Stop at <a href="https://en.wikipedia.org/wiki/House_of_Tomorrow_(Baltimore)">House of Tomorrow</a> (3707 St Paul St)</li>
-        <li data-path="L178,85 L180,79 L180,66 L175,47">Continue north on St Paul St</li>
-        <li data-path="L195,34">Northeast on Highfield Rd (turn right)</li>
-        <li data-path="L192,26">Northwest on Underwood Rd (turn left)</li>
-        <li data-path="L186,33">Arrive 4310 Underwood Rd</li>
-      </ol>
+      <div class="destination">
+        <details>
+          <summary data-path="L203,137">
+            <a href="https://www.32ndstreetmarket.org/">Waverly 32nd St Farmers Market</a>
+            <span class="emoji">🧑‍🌾☕</span>
+          </summary>
+          Open 7:00am to Noon. 
+          <a href="https://zekescoffee.com/">Zeke's Coffee</a>, 
+          <a href="https://www.uptownbakers.com/">Uptown Bakers</a>, etc.
+          <p class="caption">
+          10:41am bike 1.3 mi north (9 min):
+          <ol>
+            <li data-path="L203,127">North on Barclay St</li>
+            <li data-path="L173,104">Northwest on University Parkway (cross 33rd St; turn slight left)</li>
+            <li data-path="L174,91 L178,85">North on St Paul St (cross Greenway; turn slight right); along Guildford Gateway Park</li>
+            <li data-path="L181,87">Stop at <a href="https://en.wikipedia.org/wiki/House_of_Tomorrow_(Baltimore)">House of Tomorrow</a> (3707 St Paul St)</li>
+            <li data-path="L178,85 L180,79 L180,66 L175,47">Continue north on St Paul St</li>
+            <li data-path="L195,34">Northeast on Highfield Rd (turn right)</li>
+            <li data-path="L192,26">Northwest on Underwood Rd (turn left)</li>
+            <li data-path="L186,33">Arrive 4310 Underwood Rd</li>
+          </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/50526751256/"><img src="https://live.staticflickr.com/65535/50526751256_c0efd0ea46_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
     <td>10:50am</td>
     <td>
-      <img src="sherwood.png">
-      <a href="https://www.sherwoodgardens.org/">Sherwood Gardens</a>: tulip displays.
-      <p class="caption">
+      <div class="destination">
+        <details>
+          <summary data-path="L186,33">
+            <a href="https://www.sherwoodgardens.org/">Sherwood Gardens</a>: tulip displays
+            <span class="emoji">🌷</span></summary>
+          Open 7:00am to Noon. 
+          <a href="https://zekescoffee.com/">Zeke's Coffee</a>, 
+          <a href="https://www.uptownbakers.com/">Uptown Bakers</a>, etc.
+          <p class="caption">
       11:47am bike 0.8 mi west (5 min):
       <ol>
         <li data-path="L192,26 L195,34">South on Underwood Rd</li>
@@ -235,28 +317,52 @@ window.onload = init;
         <li data-path="L55,57 L21,73">Cross Roland Ave (turn slight right; 40th St becomes 41st St)</li>
         <li data-path="L11,62">Arrive 1700 W 41st St (before bridge over Jones Falls Expressway)</li>
       </ol>
+        </details>
+        <span class="images">
+          <img src="sherwood.png">
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>12:10pm<br>🚽</td>
+    <td>12:10pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/49045180741/"><img src="https://live.staticflickr.com/65535/49045180741_59b28ef913_n.jpg"></a>
-      Lunch at <a href="https://www.wellcraftedkitchen.com/">Well Crafted Kitchen</a>, 
-which shares space with <a href="https://unioncraftbrewing.com/">Union Craft Brewing</a> (both open at noon). 
-Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collective</a>, a former Sears warehouse.
+      <div class="destination">
+        <details>
+          <summary data-path="L11,62">
+           <a href="https://www.wellcraftedkitchen.com/">Well Crafted Kitchen</a>/<a href="https://unioncraftbrewing.com/">Union Craft Brewing</a>
+            <span class="emoji">🚽🍕🍺</span>
+          </summary>
+          Well Crafted Kitchen is inside Union Craft Brewing, the northern tip of Hampden's "Bermuda Triangle."
+         (Both open at noon.)
+          Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collective</a>, a former Sears warehouse.
       <p class="caption">
       1:03pm bike 1.0 mi south (7 min):
       <ol>
         <li data-path="L21,73 L50,60">Northeast on 41st St (turn left)</li>
         <li data-path="L63,109">South on Falls Rd (turn right); arrive Falls Rd & 36th St ("The Avenue")</li>      
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/49045180741/"><img src="https://live.staticflickr.com/65535/49045180741_59b28ef913_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
     <td>1:10pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/18378851522/"><img src="https://live.staticflickr.com/8791/18378851522_2e498dba37_n.jpg"></a>
-      Hampden. Start at <a href="https://atomicbooks.com/">Atomic Books</a>. Then get a snowball at <a href="https://www.instagram.com/qualitysnowballs/">Quality Snowballs</a>. Do what the native Baltimoreans do and add marshmallow topping for 75¢.If you like antiques there are many shops here. If you like pinball, there is a small arcade in the back of <a href="https://www.holyfrijoles.net/">Holy Frijoles</a>.
+      <div class="destination">
+        <details>
+          <summary data-path="L63,109">
+            Hampden
+            <span class="emoji">📚</span>
+          </summary>
+          Start at <a href="https://atomicbooks.com/">Atomic Books</a>.
+          Then get a snowball at <a href="https://www.instagram.com/qualitysnowballs/">Quality Snowballs</a>.
+          Do what the native Baltimoreans do and add marshmallow topping for 75¢.
+          If you like antiques there are many shops here.
+          If you like pinball, there is a small arcade in the back of <a href="https://www.holyfrijoles.net/">Holy Frijoles</a>.
       <p class="caption">
       2:30am bike 1.0 mi southeast (5 min):
       <ol>
@@ -265,13 +371,23 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
         <li data-path="L99,177">Southwest on Wyman Park Dr (turn right)</li>
         <li data-path="L105,186 L97,181 L96,187">South on Jones Falls Trail (across from <a href="https://www.johnshopkinsatstieffsilver.com/">Stieff Silver Building</a>); Follow switchback trail downhill to Falls Rd</li>
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/18378851522/"><img src="https://live.staticflickr.com/8791/18378851522_2e498dba37_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
     <td>2:35pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/44439068054/"><img src="https://live.staticflickr.com/1949/44439068054_08c5894ffc_n.jpg"></a>
-      Visit Round Falls. Then take <a href="https://jonesfallstrail.us/">Jones Falls Trail</a> to Fells Point.
+      <div class="destination">
+        <details>
+          <summary data-path="L96,187">
+            <a href="https://jonesfallstrail.us/">Jones Falls Trail</a>
+            <span class="emoji">🌊</span>
+          </summary>
+          Visit Round Falls, at the bottom of the switchback. Then follow Jones Falls Trail down to Fells Point.
       <p class="caption">
       2:45pm bike 1.7 mi south (12 min):
       <ol>
@@ -293,13 +409,23 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
         <li data-path="L320,479">East on Thames St (turn left)</li>
         <li data-path="L320,484">South on Ann St; arrive 903 S Ann St</li>
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/44439068054/"><img src="https://live.staticflickr.com/1949/44439068054_08c5894ffc_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>3:20pm<br>🚽</td>
+    <td>3:20pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/41374515220/"><img src="https://live.staticflickr.com/1807/41374515220_b2bf2454eb_n.jpg"></a>
-      Fells Point. Coffee at <a href="https://www.pitangogelato.com/location/pitango-bakery-cafe/">Pitango Cafe</a> (alternate: <a href="https://www.dailygrindfellspoint.com">Daily Grind</a>).
+      <div class="destination">
+        <details>
+          <summary data-path="L320,484">
+            Fells Point
+            <span class="emoji">🏴‍☠️🚽</span>
+          </summary>
+          Coffee at <a href="https://www.pitangogelato.com/location/pitango-bakery-cafe/">Pitango Cafe</a> (alternate: <a href="https://www.dailygrindfellspoint.com">Daily Grind</a>).
       <p class="caption">
       3:44pm Bike along waterfront via Harbor Point and Harbor East: 3.6 mi south (26 min):
       <ol>
@@ -316,13 +442,23 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
         <li data-path="L164,414 L169,395 L168,363">North on Hopkins Plaza; continue north on Liberty St; continue north on Cathedral St</li>
         <li data-path="L176,362">East on Mt Vernon Pl; arrive at Washington Pl</li>
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/41374515220/"><img src="https://live.staticflickr.com/1807/41374515220_b2bf2454eb_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
     <td>4:10pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/46979487385/"><img src="https://live.staticflickr.com/65535/46979487385_8d726c980c_n.jpg"></a>
-      Mount Vernon. Climb to top of <a href="https://mountvernonplace.org/the-monument/">Washington Monument</a> (open till 5:00pm). Gallery level is free; lookout level is $6. No more than five people can go up together.
+      <div class="destination">
+        <details>
+          <summary data-path="L176,362">
+            Mount Vernon via Inner Harbor
+            <span class="emoji">🏛️</span>
+          </summary>
+          Climb to top of <a href="https://mountvernonplace.org/the-monument/">Washington Monument</a> (open till 5:00pm). Gallery level is free; lookout level is $6. No more than five people can go up together.
 <p>
 <a href="https://thewalters.org/">The Walters Art Museum</a> is one block south of the Monument, has free admission, and is also open till 5:00pm. Anyone not climbing the Monument can explore the museum. Be sure to visit the Chamber of Wonders.
       <p class="caption">
@@ -332,27 +468,46 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
         <li data-path="L183,345">East on Read St</li>
         <li data-path="L183,352">South on St Paul St; arrive 800 St Paul St</li>
       </ol>
-
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/46979487385/"><img src="https://live.staticflickr.com/65535/46979487385_8d726c980c_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>5:10pm<br>🚽</td>
+    <td>5:10pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/50528766646/"><img src="https://live.staticflickr.com/65535/50528766646_5ca7becae9_n.jpg"></a>
-      Light dinner at <a href="https://www.sanpablotacos.com/">San Pablo Tacos</a> (alternate: <a href="http://www.iggiespizza.com/">Iggies Pizza</a>).
+      <div class="destination">
+        <details>
+          <summary data-path="L183,352">
+            <a href="https://www.sanpablotacos.com/">San Pablo Tacos</a>
+            <span class="emoji">🌮🚽</span>
+          </summary>
+          Alternate: <a href="http://www.iggiespizza.com/">Iggies Pizza</a>.
       <p class="caption">
       6:01pm bike 1.1 mi (9 min):
       <ol>
         <li data-path="L168,353">West on Madison St</li>
         <li data-path="L168,347 L162,329 L165,322 L162,256 L164,256">North on Cathedral St (turn right); continue along bike lane to Maryland Ave; arrive 30 W North Ave</li>
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/50528766646/"><img src="https://live.staticflickr.com/65535/50528766646_5ca7becae9_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>6:10pm<br>🚽</td>
+    <td>6:10pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/48341998077/"><img src="https://live.staticflickr.com/65535/48341998077_deb5ec7572_n.jpg"></a>
-      Pinball/video games at <a href="https://northavemarket.com/">North Avenue Market</a>
+      <div class="destination">
+        <details>
+          <summary data-path="L164,256">
+            <a href="https://northavemarket.com/">North Avenue Market</a>
+            <span class="emoji">👾🚽</span>
+          </summary>
+          Pinball/video games. Food available.
       <p class="caption">
       7:16pm bike 0.5 mi (4 min):
       <ol>
@@ -360,20 +515,33 @@ Both are a part of <a href="https://www.wellcraftedkitchen.com/">Union Collectiv
         <li data-path="L181,287">South on St Paul St (turn right)</li>
         <li data-path="L176,283">Cross over tracks via bridge; turn right; arrive Penn Station</li>
       </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/48341998077/"><img src="https://live.staticflickr.com/65535/48341998077_deb5ec7572_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
   <tr>
-    <td>7:20pm<br>🚽</td>
+    <td>7:20pm</td>
     <td>
-      <a href="https://www.flickr.com/photos/mvjantzen/28350832634/"><img src="https://live.staticflickr.com/8858/28350832634_9575e9d35d_n.jpg"></a>
-      Penn Station. Take the 7:30 train.
-      <p class="caption">
-      MARC's last three trains are:
-      <ul>
-        <li>6:00pm → 7:05pm</li>
-        <li>7:30pm → 8:30pm</li>
-        <li>9:15pm → 10:15pm</li>
-      </ul>
+      <div class="destination">
+        <details>
+          <summary data-path="L176,283">
+            Penn Station
+            <span class="emoji">🚽🚆</span>
+          </summary>
+          MARC's last three trains are:
+          <ul>
+            <li>6:00pm → 7:05pm</li>
+            <li>7:30pm → 8:30pm (this is the one we will take)</li>
+            <li>9:15pm → 10:15pm</li>
+          </ul> 
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/28350832634/"><img src="https://live.staticflickr.com/8858/28350832634_9575e9d35d_n.jpg"></a>
+        </span>
+      </div>
     </td>
   </tr>
 </table>
