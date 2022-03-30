@@ -18,12 +18,16 @@ body {
   margin: 0;
   overflow: hidden;
   }
+img {
+  cursor: default;
+  }
 svg {
-  width: 350px;
-  height: 840px;
+  width: 450px;
+  height: 850px;
   position: absolute;
   left: 0;
   top: 0;
+  pointer-events: none;
   }
 path {
   stroke: red;
@@ -131,7 +135,7 @@ details[open] summary {
 <script>
 function init() {
   // Calculate the length of all path segments:
-  const initialPath = "M176,283"; // Penn Station
+  const initialPath = "M114,37"; // Penn Station
   const pathNodes = document.querySelectorAll("[data-path]");
   const paths = Array.from(pathNodes, node => node.getAttribute("data-path"));
   const path = [initialPath, ...paths].join(" ");
@@ -169,13 +173,17 @@ function hideAll() {
     });
   }
 
+function xxx(x) {
+  console.log(x);
+  }
+
 window.onload = init;
 </script>
 <div id="map">
 <a href="#">
-  <img src="baltimoremap.png" ismap>
+  <img src="baltimoremap.png" onClick="xxx()" ismap>
 </a>
-  <svg viewBox="0 0 350 840">
+  <svg viewBox="0 0 450 850">
     <path id="route"/>  
   </svg>
   <h1 id="label"></h1>
@@ -236,10 +244,16 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L114,37">
             <a href="https://baltimorepennstation.com/">Penn Station</a>
             <span class="emoji">🚽🚆</span>
           </summary>
+          <p class="caption">
+          10:02am bike 1.8 mi north (13 min):
+          <ol>
+            <li>South on Charles St</li>
+            <li>West on Mt Royal Ave (turn right); arrive <a href="https://www.mica.edu/buildings/mt-royal-station/">Mount Royal Station</a></li>
+          </ol>
         </details>
         <span class="images">
         </span>
@@ -251,18 +265,10 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L107,54 L105,66 L71,66 L69,73 L68,73 L66,67 L54,63">
             <a href="https://www.mta.maryland.gov/schedule/lightrail">Light rail</a>
             <span class="emoji">🚈</span>
           </summary>
-          
-      <p class="caption">
-      10:02am bike 1.8 mi north (13 min):
-      <ol>
-        <li data-path="L170,242">South on Charles St</li>
-        <li data-path="L183,242">West on Mt Royal Ave (turn right); arrive <a href="https://www.mica.edu/buildings/mt-royal-station/">Mount Royal Station</a>
-        </li>
-      </ol>
         </details>
         <span class="images">
           <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
@@ -276,7 +282,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L67,441 L56,476 L60,468 L104,484 L127,481 L127,499 L139,500">
             <a href="https://crossstmarket.com/">Cross Street Market</a>
             <span class="emoji">🚽🛒</span>
           </summary>
@@ -291,7 +297,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L211,420 L257,408">
             <a href="https://crossstmarket.com/">Water taxi: Federal Hill to Pier Five</a>
             <span class="emoji">⛴️</span>
           </summary>
@@ -306,7 +312,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L343,462 L417,514">
             <a href="https://crossstmarket.com/">Water taxi: Maritime Park to Locust Point</a>
             <span class="emoji">⛴️</span>
           </summary>
@@ -321,7 +327,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L368,615 L223,512 L217,439 L138,350">
             <a href="https://crossstmarket.com/">Charm City Circulator: Banner Route</a>
             <span class="emoji">🚌</span>
           </summary>
@@ -336,7 +342,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L244,346 L372,396 L238,286">
             <a href="https://crossstmarket.com/">Charm City Circulator: Orange Route</a>
             <span class="emoji">🚌</span>
           </summary>
@@ -351,7 +357,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L7,120">
             <a href="https://crossstmarket.com/">Metro: Shot Tower to State Center</a>
             <span class="emoji">🚇</span>
           </summary>
@@ -366,7 +372,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L130,132 123,44">
             <a href="https://crossstmarket.com/">Charm City Circulator: Purple Route</a>
             <span class="emoji">🚌</span>
           </summary>
@@ -381,7 +387,7 @@ window.onload = init;
     <td>
       <div class="destination">
         <details>
-          <summary>
+          <summary data-path="L114,33">
             <a href="https://baltimorepennstation.com/">Penn Station</a>
             <span class="emoji">🚽🚆</span>
           </summary>
