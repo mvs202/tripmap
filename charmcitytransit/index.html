@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Charm City Transit Tour (Baltimore, Maryland)</title>
+<!-- 
+X-Y coordinates were found via https://yangcha.github.io/iview/iview.html
+Map is from https://snazzymaps.com/style/24088/map-without-labels
+HTML elements can include a "data-path" attribute containing path commands for the SVG path "d" attribute.
+These points get displayed as the user hovers over the element.
+-->
+<style>
+body {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;  
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  }
+svg {
+  width: 350px;
+  height: 840px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  }
+path {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-opacity: 0.67;
+  fill: none;
+  transition: stroke-dasharray 0.3s;
+  }
+table {
+  border-collapse: collapse;
+  }
+tr {
+  transition: background-color 0.3s;
+  }
+tr:hover {
+  background-color: #FFDAFF;
+  }
+td {
+  vertical-align: top;
+  padding: 10px;
+  }
+td:nth-child(1) {
+  text-align: right;
+  }
+.destination {
+  display: flex;
+  flex-direction: row;
+  }
+ol {
+  margin: 0 0 10px 0;
+  }
+h1 {
+  font-family: Helvetica, Arial, Sans-Serif;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  }
+details {
+  flex-grow: 1;
+  }
+details + .images {
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.3s, height 0.3s;
+  }
+details[open] + .images {
+  opacity: 1;
+  height: 213px;
+  }
+summary {
+  position: relative;
+  }
+details[open] summary {
+  margin-bottom: 10px;
+  }
+.caption {
+  margin-bottom: 5px;
+  }
+.emoji {
+  font-size: 12px;
+  }
+.images {
+  flex-grow: 0;
+  }
+.images a {
+  display: block;
+  }
+[data-path] {
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+[data-path]:hover {
+  background-color: #FFFFFF;
+  }
+#map {
+  color: #000033;
+  background-color: #FFCCCC;
+  position: relative;
+  }
+#label {
+  font-weight: normal;
+  color: #FF0000;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 10px;
+  }
+#directions {
+  font-family: Helvetica, Arial, Sans-Serif;
+  color: #000033;
+  background-color: #DADAFF;
+  flex-grow: 1;
+  overflow: scroll;
+  padding: 20px 20px 20px 0;
+  }
+#directions img {
+  float: right;
+  margin-left: 10px;		
+  }
+#directions .images img {
+  float: none;
+  }
+</style>
+</head>
+<body>
+<script>
+function init() {
+  // Calculate the length of all path segments:
+  const initialPath = "M176,283"; // Penn Station
+  const pathNodes = document.querySelectorAll("[data-path]");
+  const paths = Array.from(pathNodes, node => node.getAttribute("data-path"));
+  const path = [initialPath, ...paths].join(" ");
+  const route = document.getElementById("route");
+  route.setAttribute("d", path);
+  const fullLength = route.getTotalLength();
+  // Loop through all "data-path" nodes to add the mouseOver event.
+  // We will rebuild the path in order to measure the partial length at each node:
+  let partialPath = initialPath;
+  const label = document.getElementById("label");
+  pathNodes.forEach(node => {
+    const newPath = node.getAttribute("data-path");
+    partialPath += " " + newPath;
+    route.setAttribute("d", partialPath);
+    const partialLength = route.getTotalLength();
+    node.addEventListener("mouseover", () => {
+      route.setAttribute("stroke-dasharray", `${partialLength} ${fullLength}`);
+      const percentage = Math.round(100*partialLength/fullLength);
+      label.innerHTML = percentage + "%";
+      });
+    });
+  }
+
+function showAll() {
+  const details = document.querySelectorAll("details");
+  details.forEach(detail => {
+    detail.setAttribute("open", null);
+    });
+  }
+
+function hideAll() {
+  const details = document.querySelectorAll("details");
+  details.forEach(detail => {
+    detail.removeAttribute("open");
+    });
+  }
+
+window.onload = init;
+</script>
+<div id="map">
+<a href="#">
+  <img src="baltimoremap.png" ismap>
+</a>
+  <svg viewBox="0 0 350 840">
+    <path id="route"/>  
+  </svg>
+  <h1 id="label"></h1>
+</div>
+<div id="directions">
+<table>
+  <tr>
+    <td></td>
+    <td>
+      <h1>Charm City Transit Tour</h1>
+      This trip lets you discover the transportation options that make Baltimore unique: the Metro, the light rail,
+      The Harbor Connector water taxis, and the Charm City Circulator (a free bus). Because the Harbor Connector runs
+      only on weekdays, the trip must be on a weekday.
+      <p>
+      The light rail and the Harbor Connector both have a headway of 15 minutes, so that is the longest we would expect
+      to wait for those. The Charm City Circulator has a headway of 10-15 minutes.
+      <p>
+      The Harbor Connector is out of service (for fueling and maintenance) between 2:30 - 3:30 daily.
+      <p>
+      <button onClick="showAll()">Show all</button>
+      <button onClick="hideAll()">Hide all</button>
+    </td>
+  </tr>
+  <tr>
+    <td>8:45am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://www.unionstationdc.com/">Union Station</a>
+            <span class="emoji">🚽🚆</span>
+          </summary>
+          Meet in the MARC waiting room.
+          Even if the waiting area is full, the train is huge and there is no need to rush.
+          <p>
+          There are several MARC ticket vending machines. 
+          The Amtrak machines no longer sell MARC tickets. 
+          Buy round-trip tickets ($18) to avoid buying a return ticket in Baltimore.
+          <p>
+          The train should include the bike car (at the far end of the platform), which has 16 bike racks.
+          If for some reason the bike car is missing, all other cars allow bikes, albeit only 2 per car.
+          The MARC IV railcars accommodate bikes on the folding seats, 
+          but they advise you bring a bungee cord to secure it (not a big deal if you forget).
+          See <a href="https://www.mta.maryland.gov/bike#rail">Bikes on MARC Train</a>,
+          and <a href="https://www.youtube.com/watch?v=vDfpYQPKAOY">this video</a>.
+          <p>
+          8:55am depart Union Station (arrive Baltimore 9:57am).
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/51661419855/"><img src="https://live.staticflickr.com/65535/51661419855_0af0a4a25a_n.jpg"></a>
+          <a href="https://www.flickr.com/photos/mvjantzen/28232629880/"><img src="https://live.staticflickr.com/8773/28232629880_795886ef5c_n.jpg"></a>
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>8:55am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://baltimorepennstation.com/">Penn Station</a>
+            <span class="emoji">🚽🚆</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>9:57am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://www.mta.maryland.gov/schedule/lightrail">Light rail</a>
+            <span class="emoji">🚈</span>
+          </summary>
+          
+      <p class="caption">
+      10:02am bike 1.8 mi north (13 min):
+      <ol>
+        <li data-path="L170,242">South on Charles St</li>
+        <li data-path="L183,242">West on Mt Royal Ave (turn right); arrive <a href="https://www.mica.edu/buildings/mt-royal-station/">Mount Royal Station</a>
+        </li>
+      </ol>
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
+      <a href="https://baltimorepennstation.com/">Penn Station</a>
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>11:30am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Cross Street Market</a>
+            <span class="emoji">🚽🛒</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>12:30pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Water taxi: Federal Hill to Pier Five</a>
+            <span class="emoji">⛴️</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>2:00pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Water taxi: Maritime Park to Locust Point</a>
+            <span class="emoji">⛴️</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>2:30pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Charm City Circulator: Banner Route</a>
+            <span class="emoji">🚌</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>3:00pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Charm City Circulator: Orange Route</a>
+            <span class="emoji">🚌</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>4:00pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Metro: Shot Tower to State Center</a>
+            <span class="emoji">🚇</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>5:00pm</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://crossstmarket.com/">Charm City Circulator: Purple Route</a>
+            <span class="emoji">🚌</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>8:55am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary>
+            <a href="https://baltimorepennstation.com/">Penn Station</a>
+            <span class="emoji">🚽🚆</span>
+          </summary>
+        </details>
+        <span class="images">
+        </span>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+</body>
+</html>
