@@ -173,15 +173,11 @@ function hideAll() {
     });
   }
 
-function xxx(x) {
-  console.log(x);
-  }
-
 window.onload = init;
 </script>
 <div id="map">
 <a href="#">
-  <img src="baltimoremap.png" onClick="xxx()" ismap>
+  <img src="baltimoremap.png" ismap>
 </a>
   <svg viewBox="0 0 450 850">
     <path id="route"/>  
@@ -198,6 +194,9 @@ window.onload = init;
       The Harbor Connector water taxis, and the Charm City Circulator (a free bus). Because the Harbor Connector runs
       only on weekdays, the trip must be on a weekday.
       <p>
+      Because weekdays are the only time MARC operates an express DC→Baltimore trip, we will wake up early to ride the
+      7:00am→7:41am trip. This trip saves 20 minutes by skipping new Carrollton, Seabrook, Bowie State, Odenton, BWI, Halethorpe, and West Baltimore. (MARC is designed for Baltimore commuters, so they are rushing an empty train back to Baltimore to pick up more commuters making the trip to DC.)
+      <p>
       The light rail and the Harbor Connector both have a headway of 15 minutes, so that is the longest we would expect
       to wait for those. The Charm City Circulator has a headway of 10-15 minutes.
       <p>
@@ -208,7 +207,7 @@ window.onload = init;
     </td>
   </tr>
   <tr>
-    <td>8:45am</td>
+    <td>6:50am</td>
     <td>
       <div class="destination">
         <details>
@@ -217,7 +216,6 @@ window.onload = init;
             <span class="emoji">🚽🚆</span>
           </summary>
           Meet in the MARC waiting room.
-          Even if the waiting area is full, the train is huge and there is no need to rush.
           <p>
           There are several MARC ticket vending machines. 
           The Amtrak machines no longer sell MARC tickets. 
@@ -230,29 +228,36 @@ window.onload = init;
           See <a href="https://www.mta.maryland.gov/bike#rail">Bikes on MARC Train</a>,
           and <a href="https://www.youtube.com/watch?v=vDfpYQPKAOY">this video</a>.
           <p>
-          8:55am depart Union Station (arrive Baltimore 9:57am).
+          7:00am depart Union Station (arrive Baltimore 7:41am).
         </details>
         <span class="images">
           <a href="https://www.flickr.com/photos/mvjantzen/51661419855/"><img src="https://live.staticflickr.com/65535/51661419855_0af0a4a25a_n.jpg"></a>
-          <a href="https://www.flickr.com/photos/mvjantzen/28232629880/"><img src="https://live.staticflickr.com/8773/28232629880_795886ef5c_n.jpg"></a>
+          <a href="https://www.flickr.com/photos/mvjantzen/51490183847/"><img src="https://live.staticflickr.com/65535/51490183847_2559269f32_n.jpg"></a>
         </span>
       </div>
     </td>
   </tr>
   <tr>
-    <td>8:55am</td>
+    <td>7:41am</td>
     <td>
       <div class="destination">
         <details>
-          <summary data-path="L114,37">
+          <summary data-path="L114,34 L114,40 L106,35 L105,16 L110,16 L98,16 L86,12 L90,68 L71,66 L69,73 L68,73 L66,67 L54,63">
             <a href="https://baltimorepennstation.com/">Penn Station</a>
             <span class="emoji">🚽🚆</span>
           </summary>
           <p class="caption">
-          10:02am bike 1.8 mi north (13 min):
+          7:45am walk to Milk & Honey Market by <a href="https://www.vagrantcoffee.com/">Vagrant Coffee</a> (3 min).
           <ol>
-            <li>South on Charles St</li>
-            <li>West on Mt Royal Ave (turn right); arrive <a href="https://www.mica.edu/buildings/mt-royal-station/">Mount Royal Station</a></li>
+            <li>North on Charles St</li>
+            <li>East on Lanvale St (turn right); arrive 10 E Lanvale St</li>
+          </ol>
+          <p class="caption">
+          8:00am walk to Mount Royal Station (12 min):
+          <ol>
+            <li>West on Lanvale St</li>
+            <li>South on Maryland Ave</li>
+            <li>Cross Mt Royal Ave; turn right on Mt Royal Ave; arrive 1400 Cathedral St</li>
           </ol>
         </details>
         <span class="images">
@@ -261,11 +266,44 @@ window.onload = init;
     </td>
   </tr>
   <tr>
-    <td>9:57am</td>
+    <td>8:30am</td>
     <td>
       <div class="destination">
         <details>
-          <summary data-path="L107,54 L105,66 L71,66 L69,73 L68,73 L66,67 L54,63">
+          <summary data-path="">
+            <a href="https://www.mica.edu/buildings/mt-royal-station/">Mount Royal Station</a>
+            <span class="emoji">🚈</span>
+          </summary>
+        Station was built for the B&O. Passenger trains no longer use the track. The building is now used by MICA (Maryland Institute College of Art). The old platform should be open to the public.
+          <p class="caption">
+          8:50am walk to Mt Royal/MICA light rail stop (southbound) (6 min):
+          <ol>
+            <li>West on Mt Royal Ave</li>
+            <li>Cross tracks at Dolphin St</li>
+          </ol>
+          <p class="caption">
+          Board southbound light rail.
+          <ol>
+            <li>8:43am</li>
+            <li>8:53am (this is the one we'll aim for)</li>
+            <li>9:03am</li>
+            <li>9:23am</li>
+          </ol>
+          <p>
+          Light rail from Mt Royal/MICA to Hamburg Street  is 17 min.
+        </details>
+        <span class="images">
+          <a href="https://www.flickr.com/photos/mvjantzen/51491990475/"><img src="https://live.staticflickr.com/65535/51491990475_0aeab09739_n.jpg"></a>
+        </span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>8:30am</td>
+    <td>
+      <div class="destination">
+        <details>
+          <summary data-path="L64,51 L59,45 L60,38">
             <a href="https://www.mta.maryland.gov/schedule/lightrail">Light rail</a>
             <span class="emoji">🚈</span>
           </summary>
@@ -393,6 +431,15 @@ window.onload = init;
             <a href="https://baltimorepennstation.com/">Penn Station</a>
             <span class="emoji">🚽🚆</span>
           </summary>
+          MARC's last six trains are:
+          <ul>
+            <li>4:52pm → 5:46pm (54 min)</li>
+            <li>5:35pm → 6:30pm (55 min)</li>
+            <li>6:00pm → 6:50pm (50 min)</li>
+            <li>6:35pm → 7:28pm (53 min)</li>
+            <li>7:33pm → 8:25pm (52 min) (this is the one we will take)</li>
+            <li>9:35pm → 10:35pm (60 min)</li>
+          </ul> 
         </details>
         <span class="images">
         </span>
