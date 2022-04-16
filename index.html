@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <title>Baltimore 101 Bike Tour</title>
 <!-- 
-X-Y coordinates were found via https://yangcha.github.io/iview/iview.html
 Map is from https://snazzymaps.com/style/24088/map-without-labels
 HTML elements can include a "data-path" attribute containing path commands for the SVG path "d" attribute.
 These points get displayed as the user hovers over the element.
@@ -173,7 +172,7 @@ function hideAll() {
 window.onload = init;
 </script>
 <div id="map">
-  <img src="baltimoremap.png">
+  <img src="baltimoremap.png" ismap>
   <svg viewBox="0 0 350 840">
     <path id="route"/>  
   </svg>
@@ -190,6 +189,8 @@ window.onload = init;
       Expect to bike 17 miles in Baltimore. Beginning of route is gently uphill; rest is downhill or flat.
       <p>
       Bring a water bottle. If you have both a U lock and a cable lock, bring both. Don't forget to bring bike lights for the ride back home.
+      <p>
+      MARC's mask requirement has been extended <a href="https://www.mta.maryland.gov/service-alerts/10688">through May 3</a>.
       <p>
       <button onClick="showAll()">Show all</button>
       <button onClick="hideAll()">Hide all</button>
